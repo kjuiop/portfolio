@@ -27,19 +27,23 @@ app.innerHTML = `
     </section>
 
     <section id="skill" class="page-section">
-      <h2>🛠 Skill</h2>
+      <h2>🛠 Backend Skill</h2>
       <div class="skills-grid">
         <div class="skill-card">
-          <h3>Language / Runtime</h3>
-          <p>JavaScript (ES6+), TypeScript, Node.js</p>
+          <h3>Language</h3>
+          <p>Java (Spring 기반 백엔드), Golang 마이크로서비스 개발 경험</p>
         </div>
         <div class="skill-card">
-          <h3>Frontend</h3>
-          <p>HTML5, CSS3, Web APIs, 성능 최적화</p>
+          <h3>Backend Framework & Architecture</h3>
+          <p>Spring / Spring Boot, RESTful API, Layered / Hexagonal Architecture 설계</p>
         </div>
         <div class="skill-card">
-          <h3>Tools</h3>
-          <p>Git, Vite, npm, 테스트/빌드 도구 등</p>
+          <h3>Database & Messaging</h3>
+          <p>MySQL / PostgreSQL, Redis, 메시지 큐(Kafka 등)를 활용한 비동기 처리</p>
+        </div>
+        <div class="skill-card">
+          <h3>Cloud & Operation</h3>
+          <p>AWS 기반 배포 및 운영 경험 (EC2, RDS, S3 등), 모니터링/로그 수집</p>
         </div>
       </div>
     </section>
