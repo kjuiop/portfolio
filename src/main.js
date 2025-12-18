@@ -13,7 +13,8 @@ app.innerHTML = `
         <a href="#about">About</a>
         <a href="#skill">Skill</a>
         <a href="#career">Career</a>
-        <a href="#contact">Contact</a>
+        <a href="#side-project">Side Project</a>
+        <a href="#tech-blog">Tech Blog</a>
       </nav>
     </header>
 
@@ -60,6 +61,48 @@ app.innerHTML = `
             <span class="timeline-period">2021 - 2023</span>
             <h3>이전 회사 / 포지션</h3>
             <p>담당했던 프로젝트나 기술 스택을 정리해보세요.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+    
+    <section id="side-project" class="page-section">
+      <h2>📂 Side Project</h2>
+      <p>
+        개인적으로 진행한 사이드 프로젝트들을 간단한 카드 형식으로 소개하는 영역입니다.
+      </p>
+      <div class="skills-grid" style="margin-top: 1.2rem;">
+        <div class="skill-card">
+          <h3>프로젝트 이름 1</h3>
+          <p>무엇을 해결하기 위한 프로젝트인지, 어떤 기술을 사용했는지 적어보세요.</p>
+        </div>
+        <div class="skill-card">
+          <h3>프로젝트 이름 2</h3>
+          <p>간단한 링크(GitHub, 배포 URL 등)도 여기에 같이 표시할 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="tech-blog" class="page-section">
+      <h2>✏️ Tech Blog</h2>
+      <p>
+        기술 블로그 글 중에서 대표적인 글 몇 개를 리스트로 보여주는 영역입니다.
+      </p>
+      <ul class="timeline" style="margin-top: 1rem;">
+        <li class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-period">YYYY.MM.DD</span>
+            <h3>블로그 글 제목 1</h3>
+            <p>글의 핵심 주제/키워드를 한 줄로 요약해 보세요.</p>
+          </div>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-period">YYYY.MM.DD</span>
+            <h3>블로그 글 제목 2</h3>
+            <p>관련 링크를 나중에 a 태그로 연결해 두면 좋습니다.</p>
           </div>
         </li>
       </ul>
