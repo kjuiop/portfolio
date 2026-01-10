@@ -6,15 +6,49 @@ export function initRouter() {
   };
 
   async function handleRoute() {
-    const path = window.location.pathname;
+    // S3 경로가 /portfolio/로 시작하는 경우 처리
+    let path = window.location.pathname;
+    
+    // /portfolio/ 접두사 제거 (S3 서브디렉토리 경로 처리)
+    if (path.startsWith('/portfolio/')) {
+      path = path.replace('/portfolio', '');
+    } else if (path.startsWith('/portfolio')) {
+      path = path.replace('/portfolio', '');
+    }
+    
+    // 빈 경로는 루트로 처리
+    if (path === '' || path === '/') {
+      path = '/';
+    }
+    
+    // 경로 정규화 (끝에 슬래시 제거, 단 루트는 제외)
+    if (path !== '/' && path.endsWith('/')) {
+      path = path.slice(0, -1);
+    }
+    
     const route = routes[path] || routes['/'];
     
-    const module = await route();
-    const app = document.querySelector('#app');
-    app.innerHTML = '';
-    
-    if (module.default) {
-      module.default(app);
+    try {
+      const module = await route();
+      const app = document.querySelector('#app');
+      if (!app) {
+        console.error('App element not found');
+        return;
+      }
+      app.innerHTML = '';
+      
+      if (module.default) {
+        module.default(app);
+      }
+    } catch (error) {
+      console.error('Route error:', error);
+      // 에러 발생 시 기본 라우트로 폴백
+      const fallbackModule = await routes['/']();
+      const app = document.querySelector('#app');
+      if (app && fallbackModule.default) {
+        app.innerHTML = '';
+        fallbackModule.default(app);
+      }
     }
   }
 
