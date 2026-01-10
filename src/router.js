@@ -6,14 +6,13 @@ export function initRouter() {
   };
 
   async function handleRoute() {
-    // S3 경로가 /portfolio/로 시작하는 경우 처리
     let path = window.location.pathname;
     
     // /portfolio/ 접두사 제거 (S3 서브디렉토리 경로 처리)
     if (path.startsWith('/portfolio/')) {
       path = path.replace('/portfolio', '');
-    } else if (path.startsWith('/portfolio')) {
-      path = path.replace('/portfolio', '');
+    } else if (path === '/portfolio') {
+      path = '/';
     }
     
     // 빈 경로는 루트로 처리
