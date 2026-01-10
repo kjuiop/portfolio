@@ -30,23 +30,31 @@ jobs:
       - name: Setup payments directory
         run: |
           mkdir -p dist/payments
-          mkdir -p dist/payment-success
-          mkdir -p dist/payment-failure
+          mkdir -p dist/payments/success
+          mkdir -p dist/payments/failure
           cp dist/payments.html dist/payments/index.html
-          cp dist/payment-success.html dist/payment-success/index.html
-          cp dist/payment-failure.html dist/payment-failure/index.html
+          cp dist/payment-success.html dist/payments/success/index.html
+          cp dist/payment-failure.html dist/payments/failure/index.html
+          # payments/index.html의 assets 경로를 상대 경로로 변경
+          sed -i.bak 's|src="/assets/|src="../assets/|g' dist/payments/index.html
+          sed -i.bak 's|href="/assets/|href="../assets/|g' dist/payments/index.html
+          rm dist/payments/index.html.bak
+          # payments/success/index.html의 assets 경로를 상대 경로로 변경
+          sed -i.bak 's|src="/assets/|src="../../assets/|g' dist/payments/success/index.html
+          sed -i.bak 's|href="/assets/|href="../../assets/|g' dist/payments/success/index.html
+          rm dist/payments/success/index.html.bak
+          # payments/failure/index.html의 assets 경로를 상대 경로로 변경
+          sed -i.bak 's|src="/assets/|src="../../assets/|g' dist/payments/failure/index.html
+          sed -i.bak 's|href="/assets/|href="../../assets/|g' dist/payments/failure/index.html
+          rm dist/payments/failure/index.html.bak
           ls -la dist/payments/
-          ls -la dist/payment-success/
-          ls -la dist/payment-failure/
+          ls -la dist/payments/success/
+          ls -la dist/payments/failure/
 
       - name: Upload to S3
         run: |
           aws s3 sync dist/ s3://giglab-side-app/portfolio/ --delete
           aws s3 ls s3://giglab-side-app/portfolio/payments/ --recursive
-          aws s3 ls s3://giglab-side-app/portfolio/payment-success/ --recursive
-          aws s3 ls s3://giglab-side-app/portfolio/payment-failure/ --recursive
-        run: |
-          aws s3 sync dist/ s3://giglab-side-app/portfolio/ --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
