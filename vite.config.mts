@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
 
 export default defineConfig(({ command }) => {
-  // 개발 환경에서는 base를 '/'로, 빌드 시에는 '/portfolio/'로 설정
-  const base = command === 'build' ? '/portfolio/' : '/';
+  // CloudFront가 이미 /portfolio를 붙여주므로, 빌드 시에도 base를 '/'로 설정
+  const base = '/';
   
   return {
     root: ".",
