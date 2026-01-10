@@ -5,7 +5,7 @@ on:
     types: [ opened, synchronize, reopened ]
   push:
     branches:
-      - main  # 또는 원하는 브랜치
+      - main
 
 jobs:
   deploy:
@@ -19,7 +19,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Vite 요구사항
+          node-version: '20' 
 
       - name: Install dependencies
         run: npm install
@@ -27,9 +27,38 @@ jobs:
       - name: Build Vite App
         run: npm run build
 
+      - name: Setup payments directory
+        run: |
+          mkdir -p dist/payments
+          mkdir -p dist/payments/success
+          mkdir -p dist/payments/failure
+          mkdir -p dist/payments/assets
+          cp dist/payments.html dist/payments/index.html
+          cp dist/payment-success.html dist/payments/success/index.html
+          cp dist/payment-failure.html dist/payments/failure/index.html
+          # assets 폴더를 payments 안으로 복사
+          cp -r dist/assets/* dist/payments/assets/
+          # payments/index.html의 assets 경로를 상대 경로로 변경
+          sed -i.bak 's|src="/assets/|src="./assets/|g' dist/payments/index.html
+          sed -i.bak 's|href="/assets/|href="./assets/|g' dist/payments/index.html
+          rm dist/payments/index.html.bak
+          # payments/success/index.html의 assets 경로를 상대 경로로 변경
+          sed -i.bak 's|src="/assets/|src="../assets/|g' dist/payments/success/index.html
+          sed -i.bak 's|href="/assets/|href="../assets/|g' dist/payments/success/index.html
+          rm dist/payments/success/index.html.bak
+          # payments/failure/index.html의 assets 경로를 상대 경로로 변경
+          sed -i.bak 's|src="/assets/|src="../assets/|g' dist/payments/failure/index.html
+          sed -i.bak 's|href="/assets/|href="../assets/|g' dist/payments/failure/index.html
+          rm dist/payments/failure/index.html.bak
+          ls -la dist/payments/
+          ls -la dist/payments/success/
+          ls -la dist/payments/failure/
+          ls -la dist/payments/assets/ | head -10
+
       - name: Upload to S3
         run: |
-          aws s3 sync dist/ s3://side-client-app/portfolio/ --delete
+          aws s3 sync dist/ s3://giglab-side-app/portfolio/ --delete
+          aws s3 ls s3://giglab-side-app/portfolio/payments/ --recursive
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
