@@ -27,6 +27,11 @@ jobs:
       - name: Build Vite App
         run: npm run build
 
+      - name: Setup payments directory
+        run: |
+          mkdir -p dist/payments
+          cp dist/payments.html dist/payments/index.html
+
       - name: Upload to S3
         run: |
           aws s3 sync dist/ s3://side-client-app/portfolio/ --delete
