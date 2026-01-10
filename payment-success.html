@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>결제 완료 | Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module">
+      import './src/payments.css';
+      import renderPaymentSuccess from './src/pages/payment-success.js';
+      
+      const app = document.querySelector('#app');
+      if (app) {
+        renderPaymentSuccess(app);
+      }
+    </script>
+  </body>
+</html>

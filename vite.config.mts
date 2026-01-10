@@ -14,7 +14,9 @@ export default defineConfig(({ command }) => {
       rollupOptions: {
         input: {
           main: './index.html',
-          payments: './payments.html'
+          payments: './payments.html',
+          'payment-success': './payment-success.html',
+          'payment-failure': './payment-failure.html'
         }
       }
     }

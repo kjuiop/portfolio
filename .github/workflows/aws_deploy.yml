@@ -30,9 +30,21 @@ jobs:
       - name: Setup payments directory
         run: |
           mkdir -p dist/payments
+          mkdir -p dist/payment-success
+          mkdir -p dist/payment-failure
           cp dist/payments.html dist/payments/index.html
+          cp dist/payment-success.html dist/payment-success/index.html
+          cp dist/payment-failure.html dist/payment-failure/index.html
+          ls -la dist/payments/
+          ls -la dist/payment-success/
+          ls -la dist/payment-failure/
 
       - name: Upload to S3
+        run: |
+          aws s3 sync dist/ s3://giglab-side-app/portfolio/ --delete
+          aws s3 ls s3://giglab-side-app/portfolio/payments/ --recursive
+          aws s3 ls s3://giglab-side-app/portfolio/payment-success/ --recursive
+          aws s3 ls s3://giglab-side-app/portfolio/payment-failure/ --recursive
         run: |
           aws s3 sync dist/ s3://giglab-side-app/portfolio/ --delete
         env:
