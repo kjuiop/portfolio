@@ -75,7 +75,7 @@ export default function renderPayments(app) {
               <a href="#" class="term-link">자세히</a>
             </div>
             <div class="term-item">
-              <span>뭐든사는 통신판매중개자로, 업체 배송 상품의 상품/상품정보/거래 등에 대한 책임은 무신사가 아닌 판매자에게 있습니다.</span>
+              <span>뭐든사는 통신판매중개자로, 업체 배송 상품의 상품/상품정보/거래 등에 대한 책임은 뭐든사가 아닌 판매자에게 있습니다.</span>
             </div>
           </div>
 
